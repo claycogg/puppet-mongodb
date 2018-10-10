@@ -41,20 +41,20 @@ class mongodb::params inherits mongodb::globals {
   $dbpath_fix                = false
 >>>>>>> Add new classes for installing Ops Manager on a target machine. Update the README with how to use it. Write 2 tests to make sure things are installed correctly.
 
-  $mongos_service_manage = pick($mongodb::globals::mongos_service_manage, true)
-  $mongos_service_enable = pick($mongodb::globals::mongos_service_enable, true)
-  $mongos_service_ensure = pick($mongodb::globals::mongos_service_ensure, 'running')
-  $mongos_service_status = $mongodb::globals::mongos_service_status
-  $mongos_configdb       = '127.0.0.1:27019'
-  $mongos_restart        = true
+  $mongos_service_manage     = pick($mongodb::globals::mongos_service_manage, true)
+  $mongos_service_enable     = pick($mongodb::globals::mongos_service_enable, true)
+  $mongos_service_ensure     = pick($mongodb::globals::mongos_service_ensure, 'running')
+  $mongos_service_status     = $mongodb::globals::mongos_service_status
+  $mongos_configdb           = '127.0.0.1:27019'
+  $mongos_restart            = true
 
-  $opsmanager_package_name   = pick($mongodb::globals::opsmanager_package_name, 'opsmanager')
+  $opsmanager_package_name   = pick($mongodb::globals::opsmanager_package_name, 'mongodb-mms')
   $opsmanager_service_name   = pick($mongodb::globals::opsmanager_service_name, 'mongodb-mms')
   $opsmanager_service_manage = pick($mongodb::globals::opsmanager_service_manage, true)
   $opsmanager_service_enable = pick($mongodb::globals::opsmanager_service_enable, true)
   $opsmanager_service_ensure = pick($mongodb::globals::opsmanager_service_ensure, 'running')
   $opsmanager_service_status = $mongodb::globals::opsmanager_service_status
-  $opsmanager_url            = pick($mongodb::globals::opsmanager_url, $facts['networking']['fqdn'])
+  $opsmanager_hostname       = pick($mongodb::globals::opsmanager_hostname, $facts['networking']['fqdn'])
   $opsmanager_port           = pick($mongodb::globals::opsmanager_port, 8080)
   $opsmanager_version        = pick($mongodb::globals::opsmanager_version, '4.0.1.50101.20180801T1117Z-1')
   $opsmanager_mongo_uri      = pick($mongodb::globals::opsmanager_mongo_uri, 'mongodb://127.0.0.1:27017')
@@ -63,13 +63,13 @@ class mongodb::params inherits mongodb::globals {
   $pem_key_file              = $mongodb::globals::pem_key_file
   $pem_key_password          = $mongodb::globals::pem_key_password
 
-  $manage_package        = pick($mongodb::globals::manage_package, $mongodb::globals::manage_package_repo, false)
-  $pidfilemode           = pick($mongodb::globals::pidfilemode, '0644')
-  $manage_pidfile        = pick($mongodb::globals::manage_pidfile, true)
+  $manage_package            = pick($mongodb::globals::manage_package, $mongodb::globals::manage_package_repo, false)
+  $pidfilemode               = pick($mongodb::globals::pidfilemode, '0644')
+  $manage_pidfile            = pick($mongodb::globals::manage_pidfile, true)
 
-  $version = $mongodb::globals::version
+  $version                   = $mongodb::globals::version
 
-  $config_data           = undef
+  $config_data               = undef
 
   # Amazon Linux's OS Family is 'Linux', operating system 'Amazon'.
   case $::osfamily {
