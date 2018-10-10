@@ -657,8 +657,8 @@ Plain-text user password (will be hashed)
 ##### `roles`
 Array with user roles. Default: ['dbAdmin']
 
-##### `opsmanager_url`
-URL where Ops Manager can be accessed. Default: $facts['networking']['fqdn']
+##### `opsmanager_hostname`
+Hostname where Ops Manager can be accessed. Default: $facts['networking']['fqdn']
 
 ##### `opsmanager_port`
 Port where Ops Manager can be accessed. Default: 8080

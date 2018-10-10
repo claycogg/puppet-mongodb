@@ -1,5 +1,6 @@
 # PRIVATE CLASS: do not call directly
 class mongodb::opsmanager::service {
+  #assert_private("You are calling a private class mongodb::opsmanager::service.")
   $ensure           = $mongodb::opsmanager::service_ensure
   $service_manage   = $mongodb::opsmanager::service_manage
   $service_enable   = $mongodb::opsmanager::service_enable
@@ -17,7 +18,6 @@ class mongodb::opsmanager::service {
   if $service_manage {
     service { $service_name:
       ensure    => $service_ensure,
-      name      => $service_name,
       enable    => $service_enable,
       provider  => $service_provider,
       hasstatus => true,

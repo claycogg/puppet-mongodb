@@ -14,8 +14,8 @@
 # running with replication or authentication, please refer to the
 # documentation at http://mms.mongodb.com/help-hosted.
 # ####################################
-mongo.mongoUri=<%=@mongo_uri%>
-mongo.ssl=<%=@ssl%>
+mongo.mongoUri=<%=$mongodb::opsmanager::mongo_uri %>
+mongo.ssl=<%=$mongodb::opsmanager::ssl %>
 
 # #####################################
 # MongoDB SSL Settings (Optional)
@@ -29,9 +29,9 @@ mongo.ssl=<%=@ssl%>
 #             (needed when MongoDB is running with --sslCAFile)
 # PEMKeyFilePassword - required if the `PEMKeyFile` contains an encrypted private key
 # ####################################
-mongodb.ssl.CAFile=<%=@ca_file%>
-mongodb.ssl.PEMKeyFile=<%=@pem_key_file%>
-mongodb.ssl.PEMKeyFilePassword=<%@pem_key_password%>
+mongodb.ssl.CAFile=<%=$mongodb::opsmanager::ca_file %>
+mongodb.ssl.PEMKeyFile=<%=$mongodb::opsmanager::pem_key_file %>
+mongodb.ssl.PEMKeyFilePassword=<%=$mongodb::opsmanager::pem_key_password %>
 
 # #####################################
 # Kerberos Module (Optional)
@@ -59,12 +59,12 @@ mongodb.ssl.PEMKeyFilePassword=<%@pem_key_password%>
 # mms.kerberos.debug. The mechanism will not be functioning if any of the setting value is missing.
 #
 # Assume your kdc server FQDN is kdc.example.com, your Kerberos default realm is: EXAMPLE.COM,
-# the host running Ops Manager is mmsweb.example.com, the Kerberos for Ops Manager is mms/mmsweb.example.com@EXAMPLE.com,
-# And you have a keytab file for mms/mmsweb.example.com@EXAMPLE.COM located at /path/to/mms.keytab, then the
+# the host running Ops Manager is mmsweb.example.com, the Kerberos for Ops Manager is mms/mmsweb.example.com $mongodb::opsmanager::EXAMPLE.com,
+# And you have a keytab file for mms/mmsweb.example.com $mongodb::opsmanager::EXAMPLE.COM located at /path/to/mms.keytab, then the
 # configurations would be:
 #       jvm.java.security.krb5.kdc=kdc.example.com
 #       jvm.java.security.krb5.realm=EXAMPLE.COM
-#       mms.kerberos.principal=mms/mmsweb.example.com@EXAMPLE.COM
+#       mms.kerberos.principal=mms/mmsweb.example.com $mongodb::opsmanager::EXAMPLE.COM
 #       mms.kerberos.keyTab=/path/to/mms.keytab
 #       mms.kerberos.debug=false
 #
@@ -88,35 +88,41 @@ mms.kerberos.debug=
 #
 # #####################################
 
-mms.ignoreInitialUiSetup=<%=@ignore_ui_setup%>
-mms.centralUrl=<%=@url%>:<%=$port%>
-mms.https.ClientCertificateMode=<%=@client_certificate_mode%>
-mms.fromEmailAddr=<%=@from_email_addr%>
-mms.replyToEmailAddr=<%=@reply_to_email_addr%>
-mms.adminEmailAddr=<%=@admin_email_addr%>
-mms.emailDaoClass=<%=@email_dao_class%>
-mms.mail.transport=<%=@mail_transport%>
-mms.mail.hostname=<%=@smtp_server_hostname%>
-mms.mail.port=<%=@smtp_server_port%>
+mms.ignoreInitialUiSetup=<%=$mongodb::opsmanager::ignore_ui_setup %>
+mms.centralUrl=<%=$mongodb::opsmanager::hostname -%>:<%=$mongodb::opsmanager::port %>
+mms.https.ClientCertificateMode=<%=$mongodb::opsmanager::client_certificate_mode %>
+mms.fromEmailAddr=<%=$mongodb::opsmanager::from_email_addr %>
+mms.replyToEmailAddr=<%=$mongodb::opsmanager::reply_to_email_addr %>
+mms.adminEmailAddr=<%=$mongodb::opsmanager::admin_email_addr %>
+mms.emailDaoClass=<%=$mongodb::opsmanager::email_dao_class %>
+mms.mail.transport=<%=$mongodb::opsmanager::mail_transport %>
+mms.mail.hostname=<%=$mongodb::opsmanager::smtp_server_hostname %>
+mms.mail.port=<%=$mongodb::opsmanager::smtp_server_port %>
 
-<%unless @user_svc_class.nil?%>
-mms.userSvcClass=<%=@user_svc_class%>
-<%end%>
-<%unless @snapshot_interval.nil?%>
-brs.snapshotSchedule.interval=<%=@snapshot_interval%>
-<%end%>
-<%unless @snapshot_interval_retention.nil?%>
-brs.snapshotSchedule.retention.base=<%=@snapshot_retention%>
-<%end%>
-<%unless @snapshot_daily_retention.nil?%>
-brs.snapshotSchedule.retention.daily=<%=@snapshot_daily_retention%>
-<%end%>
-<%unless @snapshot_weekly_retention.nil?%>
-brs.snapshotSchedule.retention.weekly=<%=@snapshot_weekly_retention%>
-<%end%>
-<%unless @snapshot_monthly_retention.nil?%>
-brs.snapshotSchedule.retention.monthly=<%=@snapshot_monthly_retention%>
-<%end%>
-<%unless @versions_directory.nil?%>
-automation.versions.directory=<%=@versions_directory%>
-<%end%>
+<% if $mongodb::opsmanager::user_svc_class { -%>
+mms.userSvcClass=<%=$mongodb::opsmanager::user_svc_class -%>
+<% } -%>
+
+<% if $mongodb::opsmanager::snapshot_interval { -%>
+brs.snapshotSchedule.interval=<%=$mongodb::opsmanager::snapshot_interval -%>
+<% } -%>
+
+<% if $mongodb::opsmanager::snapshot_interval_retention { -%>
+brs.snapshotSchedule.retention.base=<%=$mongodb::opsmanager::snapshot_retention -%>
+<% } -%>
+
+<% if $mongodb::opsmanager::snapshot_daily_retention { -%>
+brs.snapshotSchedule.retention.daily=<%=$mongodb::opsmanager::snapshot_daily_retention -%>
+<% } -%>
+
+<% if $mongodb::opsmanager::snapshot_weekly_retention { -%>
+brs.snapshotSchedule.retention.weekly=<%=$mongodb::opsmanager::snapshot_weekly_retention -%>
+<% } -%>
+
+<% if $mongodb::opsmanager::snapshot_monthly_retention { -%>
+brs.snapshotSchedule.retention.monthly=<%=$mongodb::opsmanager::snapshot_monthly_retention -%>
+<% } -%>
+
+<% if $mongodb::opsmanager::versions_directory { -%>
+automation.versions.directory=<%=$mongodb::opsmanager::versions_directory -%>
+<% } -%>
