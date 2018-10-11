@@ -10,7 +10,7 @@ describe 'mongodb::opsmanager::install', type: :class do
 
         it {
           is_expected.to contain_package('mongodb-mms').with(ensure: 'present',
-                                                            name: 'mongodb-mms')
+                                                             name: 'mongodb-mms')
         }
 
         it { is_expected.to compile.with_all_deps }
