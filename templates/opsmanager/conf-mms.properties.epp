@@ -89,7 +89,7 @@ mms.kerberos.debug=
 # #####################################
 
 mms.ignoreInitialUiSetup=<%=$mongodb::opsmanager::ignore_ui_setup %>
-mms.centralUrl=<%=$mongodb::opsmanager::hostname -%>:<%=$mongodb::opsmanager::port %>
+mms.centralUrl=<%=$mongodb::opsmanager::opsmanager_url %>
 mms.https.ClientCertificateMode=<%=$mongodb::opsmanager::client_certificate_mode %>
 mms.fromEmailAddr=<%=$mongodb::opsmanager::from_email_addr %>
 mms.replyToEmailAddr=<%=$mongodb::opsmanager::reply_to_email_addr %>
