@@ -54,8 +54,10 @@ class mongodb::params inherits mongodb::globals {
   $opsmanager_service_enable = pick($mongodb::globals::opsmanager_service_enable, true)
   $opsmanager_service_ensure = pick($mongodb::globals::opsmanager_service_ensure, 'running')
   $opsmanager_service_status = $mongodb::globals::opsmanager_service_status
-  $opsmanager_hostname       = pick($mongodb::globals::opsmanager_hostname, "http://$facts['networking']['fqdn']")
+  $opsmanager_hostname       = pick($mongodb::globals::opsmanager_hostname, $facts['networking']['fqdn'])
+  $opsmanager_protocol       = pick($mongodb::globals::opsmanager_protocol, 'http://')
   $opsmanager_port           = pick($mongodb::globals::opsmanager_port, 8080)
+  $opsmanager_url            = pick($mongodb::globals::opsmanager_url, "${opsmanager_protocol}${opsmanager_hostname}:${opsmanager_port}")
   $opsmanager_download_url   = pick($mongodb::globals::opsmanager_download_url, 'https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-4.0.1.50101.20180801T1117Z-1.x86_64.rpm')
   $opsmanager_mongo_uri      = pick($mongodb::globals::opsmanager_mongo_uri, 'mongodb://127.0.0.1:27017')
   $opsmanager_package_ensure = true
