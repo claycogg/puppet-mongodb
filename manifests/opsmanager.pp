@@ -9,8 +9,7 @@ class mongodb::opsmanager (
   Boolean $service_enable                        = $mongodb::params::opsmanager_service_enable,
   Boolean $service_manage                        = $mongodb::params::opsmanager_service_manage,
   String[1] $service_name                        = $mongodb::params::opsmanager_service_name,
-  String[1] $version                             = $mongodb::params::opsmanager_version,
-  String[1] $download_url                        = "https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-${version}.x86_64.rpm",
+  String[1] $download_url                        = $mongodb::params::opsmanager_download_url,
   String[1] $mongo_uri                           = $mongodb::params::opsmanager_mongo_uri,
   String[1] $hostname                            = $mongodb::params::opsmanager_hostname,
   Stdlib::Port $port                             = $mongodb::params::opsmanager_port,
@@ -43,7 +42,7 @@ class mongodb::opsmanager (
 
     if ($ensure == 'present' or $ensure == true) {
       Class['mongodb::opsmanager::install'] -> Class['mongodb::opsmanager::service']
-       -> file { '/opt/mongodb/mms/conf/conf-mms.properties':
+      -> file { '/opt/mongodb/mms/conf/conf-mms.properties':
         ensure  => file,
         owner   => $user,
         group   => $group,

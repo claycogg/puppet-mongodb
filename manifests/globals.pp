@@ -44,7 +44,7 @@ class mongodb::globals (
 
   $opsmanager_hostname       = undef,
   $opsmanager_port           = undef,
-  $opsmanager_version        = undef,
+  $opsmanager_download_url   = undef,
   $opsmanager_mongo_uri      = undef,
   $opsmanager_package_name   = undef,
   $ca_file                   = undef,
