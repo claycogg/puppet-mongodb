@@ -48,6 +48,8 @@ class mongodb::params inherits mongodb::globals {
   $mongos_configdb           = '127.0.0.1:27019'
   $mongos_restart            = true
 
+  $opsmanager_user           = pick($mongodb::globals::opsmanager_user, 'mongodb-mms')
+  $opsmanager_group          = pick($mongodb::globals::opsmanager_group, 'mongodb-mms')
   $opsmanager_package_name   = pick($mongodb::globals::opsmanager_package_name, 'mongodb-mms')
   $opsmanager_service_name   = pick($mongodb::globals::opsmanager_service_name, 'mongodb-mms')
   $opsmanager_service_manage = pick($mongodb::globals::opsmanager_service_manage, true)

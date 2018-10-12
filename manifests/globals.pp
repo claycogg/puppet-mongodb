@@ -24,6 +24,8 @@ class mongodb::globals (
 
   $user                      = undef,
   $group                     = undef,
+  $opsmanager_user           = undef,
+  $opsmanager_group          = undef,
   $ipv6                      = undef,
   $bind_ip                   = undef,
 
