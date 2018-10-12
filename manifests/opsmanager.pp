@@ -1,8 +1,8 @@
 # This installs Ops Manager. See README.md for more info.
 
 class mongodb::opsmanager (
-  String[1] $user                                = $mongodb::params::user,
-  String[1] $group                               = $mongodb::params::group,
+  String[1] $user                                = $mongodb::params::opsmanager_user,
+  String[1] $group                               = $mongodb::params::opsmanager_group,
   Variant[Boolean, String[1]] $ensure            = $mongodb::params::opsmanager_ensure,
   String[1] $package_name                        = $mongodb::params::opsmanager_package_name,
   Boolean $package_ensure                        = $mongodb::params::opsmanager_package_ensure,
@@ -42,6 +42,10 @@ class mongodb::opsmanager (
     contain mongodb::opsmanager::install
     contain mongodb::opsmanager::service
 
+    if ($mongo_uri == 'mongodb://127.0.0.1:27017') {
+      include mongodb::server
+    }
+
     if ($ensure == 'present' or $ensure == true) {
       Class['mongodb::opsmanager::install'] -> Class['mongodb::opsmanager::service']
       -> file { '/opt/mongodb/mms/conf/conf-mms.properties':
@@ -51,9 +55,5 @@ class mongodb::opsmanager (
         mode    => '0644',
         content => epp('mongodb/opsmanager/conf-mms.properties.epp'),
       }
-    }
-
-    if ($mongo_uri == 'mongodb://127.0.0.1:27017') {
-      include mongodb::server
     }
 }
