@@ -28,8 +28,21 @@ class mongodb::opsmanager::install {
     }
   }
 
+  case $facts['os']['family'] {
+    'RedHat': {
+      $my_provider = 'rpm'
+    }
+    default: {
+      warning("The ${module_name} module might not work on ${facts['os']['family']}.  Sensible defaults will be attempted.")
+      $my_provider = undef
+    }
+  }
+
+  Package { provider => $my_provider }
+
   package { $package_name:
-    ensure => $my_package_ensure,
-    source => $download_url,
+    ensure   => $my_package_ensure,
+    source   => $download_url,
+    provider => $my_provider,
   }
 }
