@@ -1,8 +1,8 @@
 # PRIVATE CLASS: do not use directly
 class mongodb::params inherits mongodb::globals {
-<<<<<<< HEAD
   $ensure                = true
   $mongos_ensure         = true
+  $opsmanager_ensure     = true
   $ipv6                  = undef
   $service_manage        = pick($mongodb::globals::mongod_service_manage, true)
   $service_enable        = pick($mongodb::globals::service_enable, true)
@@ -20,26 +20,6 @@ class mongodb::params inherits mongodb::globals {
   $store_creds           = false
   $rcfile                = "${::root_home}/.mongorc.js"
   $dbpath_fix            = false
-=======
-  $ensure                    = true
-  $mongos_ensure             = true
-  $opsmanager_ensure         = true
-  $ipv6                      = undef
-  $service_manage            = pick($mongodb::globals::mongod_service_manage, true)
-  $service_enable            = pick($mongodb::globals::service_enable, true)
-  $service_ensure            = pick($mongodb::globals::service_ensure, 'running')
-  $service_status            = $mongodb::globals::service_status
-  $restart                   = true
-  $create_admin              = false
-  $admin_username            = 'admin'
-  $admin_roles               = ['userAdmin', 'readWrite', 'dbAdmin', 'dbAdminAnyDatabase', 'readAnyDatabase',
-    'readWriteAnyDatabase', 'userAdminAnyDatabase', 'clusterAdmin', 'clusterManager', 'clusterMonitor',
-    'hostManager', 'root', 'restore']
-  $handle_creds              = true
-  $store_creds               = false
-  $rcfile                    = "${::root_home}/.mongorc.js"
-  $dbpath_fix                = false
->>>>>>> Add new classes for installing Ops Manager on a target machine. Update the README with how to use it. Write 2 tests to make sure things are installed correctly.
 
   $mongos_service_manage     = pick($mongodb::globals::mongos_service_manage, true)
   $mongos_service_enable     = pick($mongodb::globals::mongos_service_enable, true)
