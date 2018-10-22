@@ -3,7 +3,7 @@
 class mongodb::opsmanager (
   String[1] $user                                = $mongodb::params::opsmanager_user,
   String[1] $group                               = $mongodb::params::opsmanager_group,
-  Variant[Boolean, String[1]] $ensure            = $mongodb::params::opsmanager_ensure,
+  Enum['present','lastest','absent'] $ensure     = $mongodb::params::opsmanager_ensure,
   String[1] $package_name                        = $mongodb::params::opsmanager_package_name,
   Boolean $package_ensure                        = $mongodb::params::opsmanager_package_ensure,
   Boolean $service_enable                        = $mongodb::params::opsmanager_service_enable,
@@ -46,7 +46,7 @@ class mongodb::opsmanager (
       include mongodb::server
     }
 
-    if ($ensure == 'present' or $ensure == true) {
+    if ($ensure == 'present') {
       Class['mongodb::opsmanager::install'] -> Class['mongodb::opsmanager::service']
       -> file { '/opt/mongodb/mms/conf/conf-mms.properties':
         ensure  => file,
