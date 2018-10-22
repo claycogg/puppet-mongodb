@@ -20,7 +20,7 @@ class mongodb::opsmanager (
   String[1] $reply_to_email_addr                 = 'replyto@yourdomain.com',
   String[1] $admin_email_addr                    = 'admin@yourdomain.com',
   String[1] $email_dao_class                     = 'com.xgen.svc.core.dao.email.JavaEmailDao', #AWS SES: com.xgen.svc.core.dao.email.AwsEmailDao or SMTP: com.xgen.svc.core.dao.email.JavaEmailDao
-  String[1] $mail_transport                      = 'smtp', #smtp or smtps
+  Enum['smtp','smtps'] $mail_transport           = 'smtp', #smtp or smtps
   String[1] $smtp_server_hostname                = 'your-email-relay.email.com', # if email_dao_class is SMTP: Email hostname your email provider specifies.
   String[1] $smtp_server_port                    = '25', #if email_dao_class is SMTP: Email hostname your email provider specifies.
   Boolean $ssl                                   = false,
