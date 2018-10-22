@@ -21,7 +21,7 @@
 ## Overview
 
 Installs MongoDB on RHEL/Ubuntu/Debian from OS repo, or alternatively from
-10gen repository [installation documentation](http://www.mongodb.org/display/DOCS/Ubuntu+and+Debian+packages).
+MongoDB community/enterprise repositories.
 
 ## Module Description
 
@@ -40,6 +40,7 @@ The MongoDB module also manages Ops Manager setup and the mongdb-mms daemon.
 * MongoDB service.
 * MongoDB client.
 * MongoDB sharding support (mongos)
+* MongoDB apt/yum repository.
 * 10gen/mongodb apt/yum repository.
 * Ops Manager package.
 * Ops Manager configuration files.
@@ -76,20 +77,19 @@ class {'mongodb::mongos' :
 }
 ```
 
-Although most distros come with a prepacked MongoDB server we recommend to
-use the 10gen/MongoDB software repository, because most of the current OS
-packages are outdated and not appropriate for a production environment.
-To install MongoDB from 10gen repository:
+Although most distros come with a prepacked MongoDB server, you may prefer to
+use a more recent version. To install MongoDB from the community repository:
 
 ```puppet
 class {'mongodb::globals':
   manage_package_repo => true,
+  version             => '3.6',
 }
 -> class {'mongodb::client': }
 -> class {'mongodb::server': }
 ```
 
-If you don't want to use the 10gen/MongoDB software repository or the OS packages,
+If you don't want to use the MongoDB software repository or the OS packages,
 you can point the module to a custom one.
 To install MongoDB from a custom repository:
 
@@ -177,9 +177,9 @@ There are also some settings that can be configured in `mongodb::globals`.
 * `mongodb::opsmanager`: Installs and configure Ops Manager
 
 #### Private classes
-* `mongodb::repo`: Manage 10gen/MongoDB software repository
-* `mongodb::repo::apt`: Manage Debian/Ubuntu apt 10gen/MongoDB repository
-* `mongodb::repo::yum`: Manage Redhat/CentOS apt 10gen/MongoDB repository
+* `mongodb::repo`: Manage MongoDB software repository
+* `mongodb::repo::apt`: Manage Debian/Ubuntu apt MongoDB repository
+* `mongodb::repo::yum`: Manage Redhat/CentOS yum MongoDB repository
 * `mongodb::server::config`: Configures MongoDB configuration files
 * `mongodb::server::install`: Install MongoDB software packages
 * `mongodb::server::service`: Manages service
